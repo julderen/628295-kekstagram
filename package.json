@@ -1,0 +1,24 @@
+{
+  "name": "628295-kekstagram",
+  "version": "0.0.1",
+  "description": "education project",
+  "main": "index.js",
+  "scripts": {
+    "test:lint": "eslint .",
+    "test": "npm run test:lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julderen/628295-kekstagram.git"
+  },
+  "author": "Korokhodkin Denis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/julderen/628295-kekstagram/issues"
+  },
+  "homepage": "https://github.com/julderen/628295-kekstagram#readme",
+  "devDependencies": {
+    "eslint": "4.17.0",
+    "eslint-config-htmlacademy": "0.4.2"
+  }
+}

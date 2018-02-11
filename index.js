@@ -1,10 +1,15 @@
-const arg = process.argv.slice(2)[0];
+const args = process.argv.slice(2);
 const params = {
   help: `--help`,
   version: `--version`
 };
 
-switch (arg) {
+if (args.length === 0) {
+  console.log(`This app doesn't do anything.
+It was developed by Korokhodkin Denis.`);
+}
+
+switch (args[0]) {
   case params.help:
     console.log(`This app doesn't do anything.
 Accessible params:
@@ -13,11 +18,6 @@ Accessible params:
     break;
   case params.version:
     console.log(`Version 0.0.1`);
-    break;
-  case undefined:
-    console.log(`This app doesn't do anything.
-It was developed by Korokhodkin Denis.
-To list possible options use '${params.help}'`);
     break;
   default:
     console.error(`To list possible options use '${params.help}'`);
