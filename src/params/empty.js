@@ -1,5 +1,5 @@
 const packageInfo = require(`../../package`);
-const help = require(`./help-param`);
+const help = require(`./help`);
 
 module.exports = {
   name: `empty`,
