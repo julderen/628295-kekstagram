@@ -1,3 +1,4 @@
+const colors = require(`colors`);
 const author = require(`./author`);
 const description = require(`./description`);
 const license = require(`./license`);
@@ -20,7 +21,7 @@ module.exports = {
     if (this.list[index]) {
       this.list[index].execute();
     } else {
-      console.error(`To list possible options use --'${help.name}'`);
+      console.error(`${colors.red(`To list possible options use`)} ${colors.green(help.name)}`);
       process.exitCode = 1;
     }
 
