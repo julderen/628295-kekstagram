@@ -1,4 +1,4 @@
 const args = process.argv.slice(2);
-const params = require(`./params/index`);
+const params = require(`./params/params`);
 
 params.checkParam(args[0]);
