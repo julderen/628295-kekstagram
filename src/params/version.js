@@ -2,6 +2,7 @@ const colors = require(`colors`);
 const packageInfo = require(`../../package.json`);
 
 const versionNumber = packageInfo.version.split(`.`);
+const versionColors = [`red`, `green`, `grey`];
 
 module.exports = {
   name: `--version`,
@@ -10,6 +11,6 @@ module.exports = {
     return arg === this.name;
   },
   execute() {
-    console.log(`v${colors.red(versionNumber[0])}.${colors.green(versionNumber[1])}.${colors.grey(versionNumber[2])}`);
+    console.log(`v${versionNumber.map((value, index) => colors[versionColors[index]](value)).join(`.`)}`);
   }
 };
