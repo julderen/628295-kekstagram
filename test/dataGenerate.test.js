@@ -1,6 +1,18 @@
 const {describe, it} = require(`mocha`);
 const assert = require(`assert`);
+
 const dataGenerate = require(`../src/dataGenerate`);
+const {
+  EFFECTS,
+  MAX_SCALE,
+  MAX_LIKES,
+  MAX_LENGTH_DESCRIPTION,
+  MAX_COUNT_HASH_TAGS,
+  INITIAL_STRING_HASH_TAGS,
+  MAX_LENGTH_HASH_TAG,
+  MAX_LENGTH_COMMENT,
+  MIN_COUNT
+} = require(`../src/constants/dataGenerateConstants`);
 
 describe(`dataGenerate generateEntity()`, () => {
   const entity = dataGenerate.generateEntity();
@@ -24,18 +36,17 @@ describe(`dataGenerate generateEntity()`, () => {
       assert.equal(typeof (scale), `number`);
     });
 
-    it(`should be more or equal 0`, () => {
-      assert(scale >= 0);
+    it(`should be more or equal ${MIN_COUNT}`, () => {
+      assert(scale >= MIN_COUNT);
     });
 
-    it(`should be less or equal 100`, () => {
-      assert(scale <= 100);
+    it(`should be less or equal ${MAX_SCALE}`, () => {
+      assert(scale <= MAX_SCALE);
     });
   });
 
   describe(`effect`, () => {
     const effect = entity.effect;
-    const EFFECTS = [`chrome`, `sepia`, `marvin`, `phobos`, `heat`];
 
     it(`should be string`, () => {
       assert.equal(typeof (effect), `string`);
@@ -53,13 +64,13 @@ describe(`dataGenerate generateEntity()`, () => {
       assert(Array.isArray(hashtags));
     });
 
-    it(`hashtags should be less or equal 5`, () => {
-      assert(hashtags.length <= 5);
+    it(`hashtags should be less or equal ${MAX_COUNT_HASH_TAGS}`, () => {
+      assert(hashtags.length <= MAX_COUNT_HASH_TAGS);
     });
 
-    it(`hashtag should be start with '#'`, () => {
+    it(`hashtag should be start with '${INITIAL_STRING_HASH_TAGS}'`, () => {
       for (let i = 0; i < hashtags.length; i++) {
-        assert(hashtags[i].startsWith(`#`));
+        assert(hashtags[i].startsWith(INITIAL_STRING_HASH_TAGS));
       }
     });
 
@@ -69,9 +80,9 @@ describe(`dataGenerate generateEntity()`, () => {
       }
     });
 
-    it(`hashtag should be word max length 20`, () => {
+    it(`hashtag should be word max length ${MAX_LENGTH_HASH_TAG}`, () => {
       for (let i = 0; i < hashtags.length; i++) {
-        assert(hashtags[i].length <= 20 + 1);
+        assert(hashtags[i].length <= MAX_LENGTH_HASH_TAG + INITIAL_STRING_HASH_TAGS.length);
       }
     });
 
@@ -89,8 +100,8 @@ describe(`dataGenerate generateEntity()`, () => {
       assert.equal(typeof (description), `string`);
     });
 
-    it(`description length should be less or equal 140`, () => {
-      assert(description.length <= 140);
+    it(`description length should be less or equal ${MAX_LENGTH_DESCRIPTION}`, () => {
+      assert(description.length <= MAX_LENGTH_DESCRIPTION);
     });
   });
 
@@ -101,12 +112,12 @@ describe(`dataGenerate generateEntity()`, () => {
       assert.equal(typeof (likes), `number`);
     });
 
-    it(`should be more or equal 0`, () => {
-      assert(likes >= 0);
+    it(`should be more or equal ${MIN_COUNT}`, () => {
+      assert(likes >= MIN_COUNT);
     });
 
-    it(`should be less or equal 1000`, () => {
-      assert(likes <= 1000);
+    it(`should be less or equal ${MAX_LIKES}`, () => {
+      assert(likes <= MAX_LIKES);
     });
   });
 
@@ -117,10 +128,18 @@ describe(`dataGenerate generateEntity()`, () => {
       assert(Array.isArray(comments));
     });
 
-    it(`comment should be word max length 140`, () => {
+    it(`comment should be word max length ${MAX_LENGTH_COMMENT}`, () => {
       for (let i = 0; i < comments.length; i++) {
-        assert(comments[i].length <= 140);
+        assert(comments[i].length <= MAX_LENGTH_COMMENT);
       }
+    });
+  });
+});
+
+describe(`dataGenerate`, () => {
+  describe(`generateEntities()`, () => {
+    it(`should return array of length 5`, () => {
+      assert.equal(dataGenerate.generateEntities(5).length, 5);
     });
   });
 });

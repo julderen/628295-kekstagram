@@ -16,7 +16,7 @@ module.exports = {
     version
   ],
   checkParam(arg) {
-    const index = this.list.findIndex((value) => value.predicate(arg));
+    const index = this.list.findIndex((value) => value.condition(arg));
 
     if (this.list[index]) {
       this.list[index].execute();

@@ -6,6 +6,7 @@ const {
   MAX_LIKES,
   MAX_LENGTH_DESCRIPTION,
   MAX_COUNT_HASH_TAGS,
+  INITIAL_STRING_HASH_TAGS,
   MAX_COUNT_COMMENTS,
   MAX_URL,
   MAX_LENGTH_COMMENT
@@ -37,7 +38,7 @@ module.exports = {
       do {
         const indexHashTag = generateRandomNumberInRange(WORDS.length - 1);
 
-        hashTag = `#${WORDS[indexHashTag]}`;
+        hashTag = `${INITIAL_STRING_HASH_TAGS}${WORDS[indexHashTag]}`;
       } while (hashTags.includes(hashTag));
 
       hashTags.push(hashTag);
@@ -59,6 +60,16 @@ module.exports = {
     }
 
     return comments;
+  },
+
+  generateEntities(count) {
+    let data = [];
+
+    for (let i = 0; i < count; i++) {
+      data.push(this.generateEntity());
+    }
+
+    return data;
   },
 
   generateEntity() {

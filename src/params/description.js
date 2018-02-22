@@ -1,11 +1,12 @@
 const colors = require(`colors`);
 const packageInfo = require(`../../package.json`);
+const paramsUtils = require(`../utils/paramsUtils`);
 
 module.exports = {
   name: `--description`,
   description: `Shows program description`,
-  predicate(arg) {
-    return arg === this.name;
+  condition(param) {
+    paramsUtils.defaultCondition(this.name, param);
   },
   execute() {
     console.log(colors.green(packageInfo.description));

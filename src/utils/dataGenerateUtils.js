@@ -9,7 +9,7 @@ const generateRandomString = (maxLength, arr) =>{
   do {
     const indexDescription = generateRandomNumberInRange(arr.length - 1);
 
-    string = `${string} ${arr[indexDescription]}`;
+    string += ` ${arr[indexDescription]}`;
   } while (string.length < maxLength - maxLengthWord);
 
   return string;
