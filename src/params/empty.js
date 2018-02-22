@@ -2,7 +2,7 @@ const colors = require(`colors`);
 const readline = require(`readline`);
 
 const dataGenerate = require(`../dataGenerate`);
-const fileUtils = require(`./src/utils/fileUtils`);
+const fileUtils = require(`../utils/fileUtils`);
 
 const rl = readline.createInterface({
   input: process.stdin,

@@ -6,7 +6,7 @@ module.exports = {
   name: `--description`,
   description: `Shows program description`,
   condition(param) {
-    paramsUtils.defaultCondition(this.name, param);
+    return paramsUtils.defaultCondition(this.name, param);
   },
   execute() {
     console.log(colors.green(packageInfo.description));

@@ -6,7 +6,7 @@ module.exports = {
   name: `--license`,
   description: `Shows program license`,
   condition(param) {
-    paramsUtils.defaultCondition(this.name, param);
+    return paramsUtils.defaultCondition(this.name, param);
   },
   execute() {
     console.log(`${colors.grey(`license`)} ${colors.green(packageInfo.license)}`);

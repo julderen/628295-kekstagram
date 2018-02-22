@@ -10,7 +10,7 @@ module.exports = {
   name: `--version`,
   description: `Shows program version`,
   condition(param) {
-    paramsUtils.defaultCondition(this.name, param);
+    return paramsUtils.defaultCondition(this.name, param);
   },
   execute() {
     console.log(`v${versionNumber.map((value, index) => colors[versionColors[index]](value)).join(`.`)}`);
