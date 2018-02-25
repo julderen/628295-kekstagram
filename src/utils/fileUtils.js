@@ -6,21 +6,20 @@ const unlink = promisify(fs.unlink);
 const open = promisify(fs.open);
 const readFile = promisify(fs.readFile);
 
-const writeDataToFile = (fd, data) => (
-  writeFile(fd, data)
-      .then(() => {
-        console.log(`File created`);
-      })
-      .catch((err) => {
-        console.error(`File not created`, err.code);
-        process.exitCode = 1;
-      })
-);
+const checkExistenceFile = (path, onExist, onNotExist) => open(path, `wx`)
+    .then(onNotExist)
+    .catch((err) => {
+      if (err.code === `EEXIST`) {
+        return onExist(path);
+      }
+
+      return err;
+    });
 
 module.exports = {
-  writeDataToFile,
   open,
   writeFile,
   readFile,
+  checkExistenceFile,
   unlink
 };

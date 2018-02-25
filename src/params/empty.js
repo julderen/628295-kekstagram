@@ -1,33 +1,44 @@
 const colors = require(`colors`);
-const readline = require(`readline`);
 
 const dataGenerate = require(`../dataGenerate`);
 const fileUtils = require(`../utils/fileUtils`);
+const askUtils = require(`../utils/askUtils`);
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-  prompt: `user>`,
+const generateEntitiesQuestion = askUtils.accessAsk(`Do you want generate entity and save in file? (yes or no)`);
+const howManyEntitiesQuestion = () => askUtils.numberAsk(`How much entity to generate? (number > 0)`);
+const whenSaveEntitiesQuestion = (line) => new Promise((resolve, reject) => {
+  askUtils.ask(`Where you want save in file? (path/file name)`)
+      .then((path) => resolve({countEntities: parseInt(line, 10), path}))
+      .catch(reject);
 });
 
-const ask = (question, condition) => new Promise((resolve, reject) => {
-  rl.question(question, (line) => {
-    if (!condition || condition(line)) {
-      resolve(line);
-    } else {
-      reject(line);
-    }
-  });
-});
+const onFileNotExist = (data) => (fd) => (
+  fileUtils.writeFile(fd, data)
+);
+const onFileExist = (data) => (path) => (
+  askUtils.accessAsk(`Do you want rewrite file? (yes or no)`)
+      .then(() => fileUtils.writeFile(path, data))
+);
+const saveEntitiesInFile = ({countEntities, path}) => {
+  const data = JSON.stringify(dataGenerate.generateEntities(countEntities));
 
-const accessAsk = (question) => ask(question, (line) => line === `yes`);
-const numberAsk = (question) => ask(
-    question,
-    (line) => {
-      const number = parseInt(line, 10);
+  return fileUtils.checkExistenceFile(path, onFileExist(data), onFileNotExist(data));
+};
 
-      return number && number > 0;
-    });
+const finallyActions = () => {
+  askUtils.close();
+};
+
+const exitActions = (err) => {
+  finallyActions();
+
+  if (!err) {
+    return console.log(`Bye`);
+  }
+
+  process.exitCode = 1;
+  return console.error(err);
+};
 
 module.exports = {
   name: ``,
@@ -37,30 +48,12 @@ module.exports = {
   },
   execute() {
     console.log(colors.grey(`Hi!`));
-    accessAsk(`Do you want generate data and save in file? (yes or no)`)
-        .then(() => numberAsk(`How much entity to generate? (number > 0)`))
-        .then((line) => Promise.all([
-          Promise.resolve(parseInt(line, 10)),
-          ask(`Where you want save in file? (path/file name)`)
-        ]))
-        .then((res) => {
-          const data = JSON.stringify(dataGenerate.generateEntities(res[0]));
 
-          return fileUtils.open(res[1], `wx`)
-              .then((fd) => fileUtils.writeDataToFile(fd, data))
-              .catch((err) => {
-                if (err.code === `EEXIST`) {
-                  return accessAsk(`Do you want rewrite file? (yes or no)`)
-                      .then(() => fileUtils.writeDataToFile(res[1], data));
-                }
-
-                return err;
-              });
-        })
-        .then(() => rl.close())
-        .catch(() => {
-          rl.close();
-          console.log(`Bye`);
-        });
+    generateEntitiesQuestion
+        .then(howManyEntitiesQuestion)
+        .then(whenSaveEntitiesQuestion)
+        .then(saveEntitiesInFile)
+        .then(finallyActions)
+        .catch(exitActions);
   }
 };
