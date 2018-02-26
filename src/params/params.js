@@ -6,17 +6,19 @@ const version = require(`./version`);
 const empty = require(`./empty`);
 const help = require(`./help`);
 
+const list = [
+  author,
+  description,
+  license,
+  empty,
+  version
+];
+list.push(help(list));
+
 module.exports = {
-  list: [
-    author,
-    description,
-    license,
-    help,
-    empty,
-    version
-  ],
+  list,
   checkParam(arg) {
-    const index = this.list.findIndex((value) => value.predicate(arg));
+    const index = list.findIndex((value) => value.condition(arg));
 
     if (this.list[index]) {
       this.list[index].execute();

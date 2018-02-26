@@ -1,15 +1,14 @@
 const colors = require(`colors`);
+const paramsUtils = require(`../utils/paramsUtils`);
 
-module.exports = {
+module.exports = (params) => ({
   name: `--help`,
   description: `Shows all params`,
-  predicate(arg) {
-    return arg === this.name;
+  condition(param) {
+    return paramsUtils.defaultCondition(this.name, param);
   },
   execute() {
-    const params = require(`./params`);
-
     console.log(`Accessible params:
-  ${params.list.map(({name, description}) => `${colors.grey(name)} - ${colors.green(description)}`).join(`\n  `)}`);
+  ${params.map(({name, description}) => `${colors.grey(name)} - ${colors.green(description)}`).join(`\n  `)}`);
   }
-};
+});
