@@ -5,6 +5,7 @@ const writeFile = promisify(fs.writeFile);
 const unlink = promisify(fs.unlink);
 const open = promisify(fs.open);
 const readFile = promisify(fs.readFile);
+const stat = promisify(fs.stat);
 
 const checkExistenceFile = (path, onExist, onNotExist) => open(path, `wx`)
     .then(onNotExist)
@@ -20,6 +21,7 @@ module.exports = {
   open,
   writeFile,
   readFile,
+  stat,
   checkExistenceFile,
   unlink
 };
