@@ -7,7 +7,7 @@
     "test:lint": "eslint .",
     "test:mocha": "mocha",
     "test": "npm run test:lint && npm run test:mocha",
-    "run": "node ./src/index"
+    "run": "node ./src/index --server 3000"
   },
   "repository": {
     "type": "git",

@@ -4,7 +4,7 @@ const dataGenerate = require(`../dataGenerate`);
 const fileUtils = require(`../utils/fileUtils`);
 const askUtils = require(`../utils/askUtils`);
 
-const generateEntitiesQuestion = askUtils.accessAsk(`Do you want generate entity and save in file? (yes or no)`);
+const generateEntitiesQuestion = () => askUtils.accessAsk(`Do you want generate entity and save in file? (yes or no)`);
 const howManyEntitiesQuestion = () => askUtils.numberAsk(`How much entity to generate? (number > 0)`);
 const whenSaveEntitiesQuestion = (line) => new Promise((resolve, reject) => {
   askUtils.ask(`Where you want save in file? (path/file name)`)
@@ -49,7 +49,7 @@ module.exports = {
   execute() {
     console.log(colors.grey(`Hi!`));
 
-    generateEntitiesQuestion
+    generateEntitiesQuestion()
         .then(howManyEntitiesQuestion)
         .then(whenSaveEntitiesQuestion)
         .then(saveEntitiesInFile)
