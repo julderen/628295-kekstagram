@@ -1,6 +1,6 @@
 const colors = require(`colors`);
 
-const dataGenerate = require(`../dataGenerate`);
+const dataGenerate = require(`../dataGenerator/dataGenerate`);
 const fileUtils = require(`../utils/fileUtils`);
 const askUtils = require(`../utils/askUtils`);
 

@@ -17,17 +17,13 @@ const list = [
 ];
 list.push(help(list));
 
-module.exports = {
-  list,
-  checkParam(args) {
-    const index = list.findIndex((value) => value.condition(args[0]));
+const args = process.argv.slice(2);
 
-    if (this.list[index]) {
-      this.list[index].execute(args.slice(1));
-    } else {
-      console.error(`${colors.red(`To list possible options use`)} ${colors.green(help.name)}`);
-      process.exitCode = 1;
-    }
+const index = list.findIndex((value) => value.condition(args[0]));
 
-  }
-};
+if (list[index]) {
+  list[index].execute(args.slice(1));
+} else {
+  console.error(`${colors.red(`To list possible options use`)} ${colors.green(help.name)}`);
+  process.exitCode = 1;
+}

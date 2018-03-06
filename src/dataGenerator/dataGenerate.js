@@ -1,4 +1,4 @@
-const {generateRandomNumberInRange, generateRandomString} = require(`./utils/dataGenerateUtils`);
+const {generateRandomNumberInRange, generateRandomString} = require(`../utils/dataGenerateUtils`);
 const {
   EFFECTS,
   WORDS,
@@ -72,7 +72,7 @@ module.exports = {
     return data;
   },
 
-  generateEntity() {
+  generateEntity(date) {
     return {
       url: this.generateUrl(),
       scale: this.generateScale(),
@@ -80,7 +80,8 @@ module.exports = {
       hashtags: this.generateHashTags(),
       description: this.generateDescription(),
       likes: this.generateLikes(),
-      comments: this.generateComments()
+      comments: this.generateComments(),
+      date: date || Date.now()
     };
   }
 };
