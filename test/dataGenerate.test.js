@@ -1,7 +1,7 @@
 const {describe, it} = require(`mocha`);
 const assert = require(`assert`);
 
-const dataGenerate = require(`../src/dataGenerate`);
+const dataGenerate = require(`../src/dataGenerator/dataGenerate`);
 const {
   EFFECTS,
   MAX_SCALE,
@@ -12,7 +12,7 @@ const {
   MAX_LENGTH_HASH_TAG,
   MAX_LENGTH_COMMENT,
   MIN_COUNT
-} = require(`../src/constants/dataGenerateConstants`);
+} = require(`../src/dataGenerator/constants/dataGenerateConstants`);
 
 describe(`dataGenerate generateEntity()`, () => {
   const entity = dataGenerate.generateEntity();
