@@ -1,4 +1,3 @@
-const multer = require(`multer`);
 const dataGenerate = require(`../../dataGenerator/dataGenerate`);
 
 const DATA_FILTER = {
