@@ -1,4 +1,4 @@
-const {generateRandomNumberInRange, generateRandomString} = require(`../utils/dataGenerateUtils`);
+const {generateRandomNumberInRange, generateRandomString} = require(`./utils/dataGenerateUtils`);
 const {
   EFFECTS,
   WORDS,
@@ -44,7 +44,7 @@ module.exports = {
       hashTags.push(hashTag);
     }
 
-    return hashTags;
+    return hashTags.join(` `);
   },
 
   generateDescription() {

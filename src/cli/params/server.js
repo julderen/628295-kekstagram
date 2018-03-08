@@ -1,5 +1,5 @@
 const paramsUtils = require(`../utils/paramsUtils`);
-const server = require(`../server/server`);
+const server = require(`../../server/server`);
 
 module.exports = {
   name: `--server`,

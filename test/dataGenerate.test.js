@@ -59,25 +59,24 @@ describe(`dataGenerate generateEntity()`, () => {
 
   describe(`hashtags`, () => {
     const hashtags = entity.hashtags;
+    const splitHashtags = hashtags ? hashtags.split(` `) : [];
 
-    it(`should be array`, () => {
-      assert(Array.isArray(hashtags));
+    it(`should be string`, () => {
+      assert(typeof (hashtags), `string`);
     });
 
     it(`hashtags should be less or equal ${MAX_COUNT_HASH_TAGS}`, () => {
-      assert(hashtags.length <= MAX_COUNT_HASH_TAGS);
+      assert(splitHashtags.length <= MAX_COUNT_HASH_TAGS);
     });
 
     it(`hashtag should be start with '${INITIAL_STRING_HASH_TAGS}'`, () => {
-      for (let i = 0; i < hashtags.length; i++) {
-        assert(hashtags[i].startsWith(INITIAL_STRING_HASH_TAGS));
+      for (let i = 0; i < splitHashtags.length; i++) {
+        assert(splitHashtags[i].startsWith(INITIAL_STRING_HASH_TAGS));
       }
     });
 
     it(`hashtag should be haven't ' '`, () => {
-      for (let i = 0; i < hashtags.length; i++) {
-        assert(!hashtags[i].includes(` `));
-      }
+      assert(splitHashtags.length >= 0);
     });
 
     it(`hashtag should be word max length ${MAX_LENGTH_HASH_TAG}`, () => {
@@ -87,8 +86,8 @@ describe(`dataGenerate generateEntity()`, () => {
     });
 
     it(`hashtags should be haven't same words`, () => {
-      for (let i = 0; i < hashtags.length - 1; i++) {
-        assert(hashtags.indexOf(hashtags[i], i + 1) === -1);
+      for (let i = 0; i < splitHashtags.length - 1; i++) {
+        assert(splitHashtags.indexOf(splitHashtags[i], i + 1) === -1);
       }
     });
   });

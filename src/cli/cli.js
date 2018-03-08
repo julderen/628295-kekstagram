@@ -1,11 +1,11 @@
 const colors = require(`colors`);
-const author = require(`./author`);
-const description = require(`./description`);
-const license = require(`./license`);
-const version = require(`./version`);
-const empty = require(`./empty`);
-const help = require(`./help`);
-const server = require(`./server`);
+const author = require(`./params/author`);
+const description = require(`./params/description`);
+const license = require(`./params/license`);
+const version = require(`./params/version`);
+const empty = require(`./params/empty`);
+const help = require(`./params/help`);
+const server = require(`./params/server`);
 
 const list = [
   author,
