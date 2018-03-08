@@ -1,6 +1,5 @@
 const colors = require(`colors`);
-
-const packageInfo = require(`../../package.json`);
+const packageInfo = require(`../../../package.json`);
 const paramsUtils = require(`../utils/paramsUtils`);
 
 const versionNumber = packageInfo.version.split(`.`);
