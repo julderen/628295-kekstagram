@@ -11,7 +11,6 @@ const postRouter = new Router();
 postRouter.get(`/`, async (req, res) => res.json(await postRouter.postsService.getPosts(req.query.limit, req.query.skip)));
 postRouter.get(`/:date`, async (req, res) => {
   try {
-    console.log(await postRouter.postsService.getPostByDate(parseInt(req.params.date, 10)));
     res.json(await postRouter.postsService.getPostByDate(parseInt(req.params.date, 10)));
   } catch (err) {
     res.status(err.code).send(err);

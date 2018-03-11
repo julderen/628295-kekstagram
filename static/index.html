@@ -9,6 +9,12 @@
 </head>
 <body>
 
+<section class="modal-error hidden">
+  <span class="modal-error__title">ОШИБКА</span>
+  <span class="modal-error__message">Текст ошибки</span>
+  <span class="modal-error__close">⨯</span>
+</section>
+
 <form class="filters filters-inactive" action="index.html" method="get" autocomplete="off">
   <input type="radio" id="filter-recommend" class="filters-radio" name="filter" value="recommend" checked>
   <label for="filter-recommend" class="filters-item">Рекомендуемые</label>
@@ -23,7 +29,7 @@
   <label for="filter-random" class="filters-item">Случайные</label>
 </form>
 
-<form class="upload-form" id="upload-select-image" method="post" enctype="multipart/form-data" autocomplete="off">
+<form class="upload-form" id="upload-select-image" method="post" enctype="multipart/form-data" action="https://echo.htmlacademy.ru" autocomplete="off">
   <div class="upload-image">
     <input type="file" id="upload-file" class="upload-input" name="filename" required>
     <label class="upload-file upload-control" for="upload-file"></label>
@@ -33,25 +39,20 @@
     <div class="upload-effect">
       <div class="upload-effect__container">
         <fieldset class="upload-resize-controls">
-          <button type="button"
-                  class="upload-resize-control upload-resize-controls-button upload-resize-controls-button-dec">–
-          </button><!--
-          --><input type="text" class="upload-resize-control upload-resize-controls-value" value="55%" readonly title="Image Scale" name="scale"><!--
-          --><button type="button"
-                  class="upload-resize-control upload-resize-controls-button upload-resize-controls-button-inc">+
-          </button>
+          <button type="button" class="upload-resize-control upload-resize-controls-button upload-resize-controls-button-dec">–</button>
+          <input type="text" class="upload-resize-control upload-resize-controls-value" value="100%" readonly title="Image Scale" name="scale">
+          <button type="button" class="upload-resize-control upload-resize-controls-button upload-resize-controls-button-inc">+</button>
         </fieldset>
 
         <div class="upload-form-preview">
-          <div></div>
-          <img src="img/upload-default-image.jpg" class="effect-image-preview">
+          <img src="" class="effect-image-preview">
         </div>
 
         <fieldset class="upload-effect-controls">
-          <div class="upload-effect-level">
-            <input type="number" class="upload-effect-level-value" name="effect-level" value="20">
+          <div class="upload-effect-level hidden">
+            <input type="number" class="upload-effect-level-value" name="effect-level" value="100">
             <div class="upload-effect-level-line">
-              <div class="upload-effect-level-pin" style="left: 20%"></div>
+              <div class="upload-effect-level-pin" style="left: 100%" tabindex="0"></div>
               <div class="upload-effect-level-val"></div>
             </div>
           </div>
@@ -95,7 +96,7 @@
 
         <input class="upload-form-hashtags" name="hashtags" placeholder="#хэш-тег">
 
-        <textarea class="upload-form-description" name="description" placeholder="Ваш комментарий..."></textarea>
+        <textarea class="upload-form-description" name="description" placeholder="Ваш комментарий..." maxlength="140"></textarea>
 
         <button class="upload-form-cancel" type="reset" id="upload-cancel">Закрыть</button>
         <button class="upload-form-submit" type="submit" id="upload-submit">Отправить</button>
@@ -113,7 +114,8 @@
 <footer class="footer container">
   <div class="center-wrapper">
     <section class="footer-logo">
-      Сделано в <a tabindex="1" href="https://htmlacademy.ru/intensive/javascript" class="footer-logo-link"><img src="img/ha-logo.png" class="footer-logo-image" width="130" alt="HTML Academy">HTML Academy</a> &copy; 2018
+      Сделано в <a href="https://htmlacademy.ru/intensive/javascript" class="footer-logo-link"><img
+      src="img/ha-logo.png" class="footer-logo-image" width="130" alt="HTML Academy">HTML Academy</a> &copy; 2018
     </section>
 
     <nav class="footer-social">
@@ -123,14 +125,14 @@
          class="footer-social-item footer-social-item-instagram" target="_blank" rel="nofollow">Instagtam</a>
       <a href="https://www.facebook.com/htmlacademy" alt="facebook"
          class="footer-social-item footer-social-item-facebook" target="_blank" rel="nofollow">Facebook</a>
-      <a href="https://vk.com/htmlacademy" alt="vk" class="footer-social-item footer-social-item-vk" target="_blank" rel="nofollow">VK</a>
+      <a href="https://vk.com/htmlacademy" alt="vk" class="footer-social-item footer-social-item-vk" target="_blank"
+         rel="nofollow">VK</a>
     </nav>
   </div>
 </footer>
 
-
 <div class="gallery-overlay hidden">
-  <span class="gallery-overlay-close">&times;</span>
+  <a href="" class="gallery-overlay-close">&times;</a>
   <div class="gallery-overlay-preview">
     <img src="" class="gallery-overlay-image" alt="">
     <div class="gallery-overlay-controls">
@@ -150,5 +152,10 @@
   </a>
 </template>
 
+<script>
+  window.SERVER_URL_GET = 'http://localhost:3000/api/posts?skip=0&limit=50';
+  window.SERVER_URL_POST = 'http://localhost:3000/api/posts';
+</script>
+<script src="script.min.js"></script>
 </body>
 </html>
