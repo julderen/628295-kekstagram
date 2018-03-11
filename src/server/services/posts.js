@@ -3,19 +3,12 @@ const ValidationError = require(`../errors/validationError`);
 const NotFoundError = require(`../errors/notFoundError`);
 const postScheme = require(`../scheme/postScheme`);
 const createStreamFromBuffer = require(`../utils/bufferToStream`);
+const servicesUtils = require(`../utils/servicesUtils`);
 
-const DATA_FILTER = {
-  limit: 10,
-  skip: 0
-};
 let postsStore;
 let imagesStore;
 
-const getPosts = async (limit, skip) =>
-  await (await postsStore.getAllPosts())
-      .skip((skip && parseInt(skip, 10)) || DATA_FILTER.skip)
-      .limit((limit && parseInt(limit, 10)) || DATA_FILTER.limit)
-      .toArray();
+const getPosts = async (limit, skip) => await (servicesUtils.definePage(await postsStore.getAllPosts(), skip, limit));
 
 const getPostByDate = async (date) => {
   const data = await postsStore.getPost(date);

@@ -6,7 +6,10 @@ const app = express();
 routes.init(app);
 
 module.exports = {
-  start(port = configs.port, hostname = configs.hostname) {
+  start(
+      port = parseInt(process.env.SERVER_PORT, 10) || configs.port,
+      hostname = process.env.SERVER_HOST || configs.hostname
+  ) {
     app.listen(port, hostname, () => {
       console.log(`Server running at http://${hostname}:${port}/`);
     });

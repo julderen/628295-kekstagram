@@ -2,7 +2,7 @@ const createPostsController = require(`../../../../src/server/controllers/posts`
 const createPostsServices = require(`../../../../src/server/services/posts`);
 const dataGenerate = require(`../../../../src/dataGenerator/dataGenerate`);
 
-const posts = dataGenerate.generateEntities(20);
+const posts = dataGenerate.generateEntities(100);
 
 class Cursor {
   constructor(data) {
