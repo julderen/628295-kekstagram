@@ -18,7 +18,7 @@ const {
   MAX_LENGTH_DESCRIPTION
 } = require(`../../../../src/dataGenerator/constants/dataGenerateConstants`);
 
-const image = [`image`, `test/fixtures/logo-background-3.jpg`];
+const filename = [`filename`, `test/fixtures/logo-background-3.jpg`];
 const scale = [`scale`, 22];
 const effect = [`effect`, `marvin`];
 const requeredMessage = `is required`;
@@ -39,7 +39,7 @@ describe(`POST /api/posts`, () => {
         .post(`/api/posts`)
         .field(...scale)
         .field(...effect)
-        .attach(...image)
+        .attach(...filename)
         .set(`Accept`, `application/json`)
         .expect(200)
         .expect(`Content-Type`, /json/);
@@ -48,7 +48,7 @@ describe(`POST /api/posts`, () => {
     return request(app)
         .post(`/api/posts`)
         .field(...effect)
-        .attach(...image)
+        .attach(...filename)
         .set(`Accept`, `application/json`)
         .expect(400)
         .expect(`Content-Type`, /json/)
@@ -72,7 +72,7 @@ describe(`POST /api/posts`, () => {
     return request(app)
         .post(`/api/posts`)
         .field(...scale)
-        .attach(...image)
+        .attach(...filename)
         .set(`Accept`, `application/json`)
         .expect(400)
         .expect(`Content-Type`, /json/)
@@ -87,7 +87,7 @@ describe(`POST /api/posts`, () => {
         .post(`/api/posts`)
         .field(`effect`, effectValue)
         .field(...scale)
-        .attach(...image)
+        .attach(...filename)
         .set(`Accept`, `application/json`)
         .expect(400)
         .expect(`Content-Type`, /json/)
@@ -102,7 +102,7 @@ describe(`POST /api/posts`, () => {
         .field(...effect)
         .field(...scale)
         .field(`hashtags`, hashtagsValue)
-        .attach(...image)
+        .attach(...filename)
         .set(`Accept`, `application/json`)
         .expect(400)
         .expect(`Content-Type`, /json/)
@@ -121,7 +121,7 @@ describe(`POST /api/posts`, () => {
         .field(...effect)
         .field(...scale)
         .field(`description`, descriptionValue)
-        .attach(...image)
+        .attach(...filename)
         .set(`Accept`, `application/json`)
         .expect(400)
         .expect(`Content-Type`, /json/)

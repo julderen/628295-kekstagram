@@ -1,6 +1,7 @@
 const express = require(`express`);
 const configs = require(`./configs/configs`);
 const routes = require(`./routes/routes`);
+const logger = require(`./logger`);
 
 const app = express();
 routes.init(app);
@@ -11,7 +12,7 @@ module.exports = {
       hostname = process.env.SERVER_HOST || configs.hostname
   ) {
     app.listen(port, hostname, () => {
-      console.log(`Server running at http://${hostname}:${port}/`);
+      logger.info(`Server running at http://${hostname}:${port}/`);
     });
   },
   app

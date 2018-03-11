@@ -28,7 +28,7 @@ postRouter.get(`/:date/image`, async (req, res) => {
     res.status(err.code).send(err);
   }
 });
-postRouter.post(`/`, upload.single(`image`), async (req, res) => {
+postRouter.post(`/`, upload.single(`filename`), async (req, res) => {
   try {
     res.json(await postRouter.postsService.createPost(Object.assign({}, req.body, {filename: req.file})));
   } catch (err) {

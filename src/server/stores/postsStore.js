@@ -1,4 +1,5 @@
 const db = require(`../../database/database`);
+const logger = require(`../logger`);
 
 const setupCollection = async () => {
   const dBase = await db;
@@ -27,4 +28,7 @@ class PostsStore {
 
 }
 
-module.exports = new PostsStore(setupCollection().catch(() => process.exit(1)));
+module.exports = new PostsStore(setupCollection().catch((err) => {
+  logger.error(err);
+  process.exit(1);
+}));
