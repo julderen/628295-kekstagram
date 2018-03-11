@@ -6,6 +6,12 @@ const logger = require(`./logger`);
 const app = express();
 routes.init(app);
 
+app.use((req, res, next) => {
+  res.header(`Access-Control-Allow-Origin`, `*`);
+  res.header(`Access-Control-Allow-Headers`, `Origin, X-Requested-With, Content-Type, Accept`);
+  next();
+});
+
 module.exports = {
   start(
       port = parseInt(process.env.SERVER_PORT, 10) || configs.port,
