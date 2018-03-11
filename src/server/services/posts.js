@@ -17,7 +17,15 @@ const getPosts = async (limit, skip) =>
       .limit((limit && parseInt(limit, 10)) || DATA_FILTER.limit)
       .toArray();
 
-const getPostByDate = async (date) => await postsStore.getPost(date);
+const getPostByDate = async (date) => {
+  const data = await postsStore.getPost(date);
+
+  if (!data) {
+    throw new NotFoundError();
+  }
+
+  return data;
+};
 
 const createPost = async (data) => {
   const errors = validateSchema(data, postScheme);
