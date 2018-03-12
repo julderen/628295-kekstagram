@@ -1,6 +1,9 @@
 const request = require(`supertest`);
 const assert = require(`assert`);
-const {app} = require(`../../../../src/server/server`);
+const mockPostController = require(`./mock.postController`);
+const app = require(`express`)();
+
+app.use(`/api/posts`, mockPostController);
 
 describe(`GET /api/posts/:date`, () => {
   it(`respond with json`, () => {
