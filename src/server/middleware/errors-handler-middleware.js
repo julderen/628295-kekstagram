@@ -1,5 +1,5 @@
 const logger = require(`../logger`);
-const {renderException} = require(`../utils/data-render-utils`);
+const {renderDataError} = require(`../utils/data-render-utils`);
 const NotFoundError = require(`../errors/not-found-error`);
 const ValidationError = require(`../errors/validation-error`);
 const BadRequestError = require(`../errors/bad-request-error`);
@@ -14,7 +14,7 @@ const errorsHandler = (error, req, res, _next) => {
 
   res.status(resultError.statusCode);
 
-  renderException(req, res, Array.isArray(resultError.error) ? resultError.error : [resultError.error]);
+  renderDataError(req, res, Array.isArray(resultError.error) ? resultError.error : [resultError.error]);
 };
 
 module.exports = errorsHandler;

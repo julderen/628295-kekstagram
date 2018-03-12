@@ -1,9 +1,10 @@
 const request = require(`supertest`);
 const assert = require(`assert`);
 const mockPostController = require(`./mock.postController`);
+const errorsHandler = require(`../../../../src/server/middleware/errors-handler-middleware`);
 const app = require(`express`)();
 
-app.use(`/api/posts`, mockPostController);
+app.use(`/api/posts`, mockPostController, errorsHandler);
 
 const {
   every,
@@ -23,15 +24,13 @@ const scale = [`scale`, 22];
 const effect = [`effect`, `marvin`];
 const requeredMessage = `is required`;
 
-const generateErrorEntity = (fieldName, errorMessage, value) => ({
-  "errors": [
-    Object.assign({
-      "fieldName": fieldName,
-      "errorMessage": errorMessage,
-    },
-    value && {"fieldValue": value}
-    )]
-});
+const generateErrorEntity = (fieldName, errorMessage, value) => ([
+  Object.assign({
+    "fieldName": fieldName,
+    "errorMessage": errorMessage,
+  },
+  value && {"fieldValue": value}
+  )]);
 
 describe(`POST /api/posts`, () => {
   it(`respond with json`, () => {
