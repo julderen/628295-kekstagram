@@ -1,7 +1,7 @@
 const colors = require(`colors`);
-const dataGenerate = require(`../../dataGenerator/dataGenerate`);
-const fileUtils = require(`../utils/fileUtils`);
-const askUtils = require(`../utils/askUtils`);
+const dataGenerate = require(`../../data-generator/data-generate`);
+const fileUtils = require(`../utils/file-utils`);
+const askUtils = require(`../utils/ask-utils`);
 
 const generateEntitiesQuestion = () => askUtils.accessAsk(`Do you want generate entity and save in file? (yes or no)`);
 const howManyEntitiesQuestion = () => askUtils.numberAsk(`How much entity to generate? (number > 0)`);
@@ -48,7 +48,7 @@ module.exports = {
   execute() {
     console.log(colors.grey(`Hi!`));
 
-    generateEntitiesQuestion()
+    return generateEntitiesQuestion()
         .then(howManyEntitiesQuestion)
         .then(whenSaveEntitiesQuestion)
         .then(saveEntitiesInFile)

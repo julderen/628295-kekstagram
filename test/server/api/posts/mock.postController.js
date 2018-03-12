@@ -1,6 +1,6 @@
-const createPostsController = require(`../../../../src/server/controllers/posts`);
-const createPostsServices = require(`../../../../src/server/services/posts`);
-const dataGenerate = require(`../../../../src/dataGenerator/dataGenerate`);
+const createPostsController = require(`../../../../src/server/controllers/posts-controllers`);
+const createPostsServices = require(`../../../../src/server/services/posts-services`);
+const dataGenerate = require(`../../../../src/data-generator/data-generate`);
 
 const posts = dataGenerate.generateEntities(100);
 
@@ -45,7 +45,6 @@ class MockPostsStore {
 }
 
 class MockImageStore {
-
   async getBucket() {
   }
 

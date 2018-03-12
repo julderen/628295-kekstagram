@@ -10,13 +10,13 @@ const {
   textStartWith,
   oneOf,
   textRange
-} = require(`../../../../src/server/utils/assertionUtils`);
+} = require(`../../../../src/server/utils/assertion-utils`);
 const {
   EFFECTS,
   INITIAL_STRING_HASH_TAGS,
   MIN_COUNT,
   MAX_LENGTH_DESCRIPTION
-} = require(`../../../../src/dataGenerator/constants/dataGenerateConstants`);
+} = require(`../../../../src/data-generator/constants/data-generate-constants`);
 
 const filename = [`filename`, `test/fixtures/logo-background-3.jpg`];
 const scale = [`scale`, 22];

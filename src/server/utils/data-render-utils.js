@@ -1,6 +1,6 @@
 const util = require(`util`);
 const {MongoError} = require(`mongodb`);
-const ValidationError = require(`../errors/validationError`);
+const ValidationError = require(`../errors/validation-error`);
 
 const SUCCESS_CODE = 200;
 const BAD_DATA_CODE = 400;

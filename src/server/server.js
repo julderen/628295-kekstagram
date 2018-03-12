@@ -20,6 +20,7 @@ module.exports = {
     app.listen(port, hostname, () => {
       logger.info(`Server running at http://${hostname}:${port}/`);
     });
+    return app;
   },
   app
 };

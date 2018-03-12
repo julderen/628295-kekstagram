@@ -1,5 +1,5 @@
 const colors = require(`colors`);
-const paramsUtils = require(`../utils/paramsUtils`);
+const paramsUtils = require(`../utils/params-utils`);
 
 module.exports = (params) => ({
   name: `--help`,

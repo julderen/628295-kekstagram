@@ -9,7 +9,7 @@ class ImageStore {
     const dBase = await db;
     if (!this._bucket) {
       this._bucket = new mongodb.GridFSBucket(dBase, {
-        chunkSizeBytes: 1024,
+        chunkSizeBytes: 2024,
         bucketName: `filename`
       });
     }
@@ -26,10 +26,10 @@ class ImageStore {
     return {info: entity, stream: bucket.openDownloadStreamByName(filename)};
   }
 
-  async save(filename, stream) {
+  async save(filename, stream, config) {
     const bucket = await this.getBucket();
     return new Promise((success, fail) => {
-      stream.pipe(bucket.openUploadStream(filename)).on(`error`, fail).on(`finish`, success);
+      stream.pipe(bucket.openUploadStream(filename, config)).on(`error`, fail).on(`finish`, success);
     });
   }
 
