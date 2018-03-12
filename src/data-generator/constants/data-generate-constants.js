@@ -1,4 +1,4 @@
-const EFFECTS = [`chrome`, `sepia`, `marvin`, `phobos`, `heat`];
+const EFFECTS = [`none`, `chrome`, `sepia`, `marvin`, `phobos`, `heat`];
 const WORDS = [`new`, `goal`, `women`, `body`, `like`, `good`, `funny`, `pure`, `i`, `like`, `from`, `can`, `fly`, `time`, `happy`, `bro`, `future`, `try`, `home`];
 const MAX_SCALE = 100;
 const MAX_LIKES = 1000;

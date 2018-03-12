@@ -1,7 +1,9 @@
 const {MongoClient} = require(`mongodb`);
+const logger = require(`../server/logger`);
 
-const url = process.env.MONGO_URL || `mongodb://localhost:27017`;
+const url = `mongodb://${process.env.DB_HOST || `localhost:27017`}`;
 
-module.exports = MongoClient.connect(url).then((client) => client.db(`kekstogram`)).catch(() => {
+module.exports = MongoClient.connect(url).then((client) => client.db(`kekstogram`)).catch((err) => {
+  logger.error(err);
   process.exit(1);
 });

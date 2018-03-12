@@ -1,4 +1,4 @@
-const {generateRandomNumberInRange, generateRandomString} = require(`./utils/dataGenerateUtils`);
+const {generateRandomNumberInRange, generateRandomString} = require(`./utils/data-generate-utils`);
 const {
   EFFECTS,
   WORDS,
@@ -10,7 +10,7 @@ const {
   MAX_COUNT_COMMENTS,
   MAX_URL,
   MAX_LENGTH_COMMENT
-} = require(`./constants/dataGenerateConstants`);
+} = require(`./constants/data-generate-constants`);
 
 module.exports = {
   generateUrl() {

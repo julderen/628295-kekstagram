@@ -14,8 +14,9 @@ describe(`GET /api/posts`, () => {
         .expect(`Content-Type`, /json/)
         .then((response) => {
           const page = response.body;
-          assert.equal(page.length, 10);
-          assert.equal(Object.keys(page[0]).length, 8);
+
+          assert.equal(page.data.length, 50);
+          assert.equal(Object.keys(page.data[0]).length, 8);
         });
   });
   it(`respond with json with length 1`, () => {
@@ -27,8 +28,9 @@ describe(`GET /api/posts`, () => {
         .expect(`Content-Type`, /json/)
         .then((response) => {
           const page = response.body;
-          assert.equal(page.length, 1);
-          assert.equal(Object.keys(page[0]).length, 8);
+
+          assert.equal(page.data.length, 1);
+          assert.equal(Object.keys(page.data[0]).length, 8);
         });
   });
 });

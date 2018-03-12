@@ -17,13 +17,21 @@ const list = [
 ];
 list.push(help(list));
 
+const executeParam = async (param, arg) => {
+  await param.execute(arg[1]);
+
+  if (!server.condition(arg[0])) {
+    process.exit(0);
+  }
+};
+
 const args = process.argv.slice(2);
 
 const index = list.findIndex((value) => value.condition(args[0]));
 
 if (list[index]) {
-  list[index].execute(args.slice(1));
+  executeParam(list[index], args).catch(() => console.error(colors.red(`Can't execute`)));
 } else {
   console.error(`${colors.red(`To list possible options use`)} ${colors.green(help.name)}`);
-  process.exitCode = 1;
+  process.exit(1);
 }

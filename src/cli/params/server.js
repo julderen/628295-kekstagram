@@ -1,4 +1,4 @@
-const paramsUtils = require(`../utils/paramsUtils`);
+const paramsUtils = require(`../utils/params-utils`);
 const server = require(`../../server/server`);
 
 module.exports = {
@@ -7,7 +7,7 @@ module.exports = {
   condition(param) {
     return paramsUtils.defaultCondition(this.name, param);
   },
-  execute([port]) {
-    server.start(port);
+  execute(port) {
+    return server.start(port);
   }
 };

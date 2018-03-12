@@ -1,15 +1,23 @@
 const express = require(`express`);
 const configs = require(`./configs/configs`);
 const routes = require(`./routes/routes`);
+const logger = require(`./logger`);
+const corsMiddleware = require(`./middleware/cors-middleware`);
 
 const app = express();
 routes.init(app);
 
+app.use(corsMiddleware);
+
 module.exports = {
-  start(port = configs.port, hostname = configs.hostname) {
+  start(
+      port = parseInt(process.env.SERVER_PORT, 10) || configs.port,
+      hostname = process.env.SERVER_HOST || configs.hostname
+  ) {
     app.listen(port, hostname, () => {
-      console.log(`Server running at http://${hostname}:${port}/`);
+      logger.info(`Server running at http://${hostname}:${port}/`);
     });
+    return app;
   },
   app
 };

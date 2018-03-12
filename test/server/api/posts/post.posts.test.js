@@ -1,37 +1,36 @@
 const request = require(`supertest`);
 const assert = require(`assert`);
 const mockPostController = require(`./mock.postController`);
+const errorsHandler = require(`../../../../src/server/middleware/errors-handler-middleware`);
 const app = require(`express`)();
 
-app.use(`/api/posts`, mockPostController);
+app.use(`/api/posts`, mockPostController, errorsHandler);
 
 const {
   every,
   textStartWith,
   oneOf,
   textRange
-} = require(`../../../../src/server/utils/assertionUtils`);
+} = require(`../../../../src/server/utils/assertion-utils`);
 const {
   EFFECTS,
   INITIAL_STRING_HASH_TAGS,
   MIN_COUNT,
   MAX_LENGTH_DESCRIPTION
-} = require(`../../../../src/dataGenerator/constants/dataGenerateConstants`);
+} = require(`../../../../src/data-generator/constants/data-generate-constants`);
 
-const image = [`image`, `test/fixtures/logo-background-3.jpg`];
+const filename = [`filename`, `test/fixtures/logo-background-3.jpg`];
 const scale = [`scale`, 22];
 const effect = [`effect`, `marvin`];
 const requeredMessage = `is required`;
 
-const generateErrorEntity = (fieldName, errorMessage, value) => ({
-  "errors": [
-    Object.assign({
-      "fieldName": fieldName,
-      "errorMessage": errorMessage,
-    },
-    value && {"fieldValue": value}
-    )]
-});
+const generateErrorEntity = (fieldName, errorMessage, value) => ([
+  Object.assign({
+    "fieldName": fieldName,
+    "errorMessage": errorMessage,
+  },
+  value && {"fieldValue": value}
+  )]);
 
 describe(`POST /api/posts`, () => {
   it(`respond with json`, () => {
@@ -39,7 +38,7 @@ describe(`POST /api/posts`, () => {
         .post(`/api/posts`)
         .field(...scale)
         .field(...effect)
-        .attach(...image)
+        .attach(...filename)
         .set(`Accept`, `application/json`)
         .expect(200)
         .expect(`Content-Type`, /json/);
@@ -48,7 +47,7 @@ describe(`POST /api/posts`, () => {
     return request(app)
         .post(`/api/posts`)
         .field(...effect)
-        .attach(...image)
+        .attach(...filename)
         .set(`Accept`, `application/json`)
         .expect(400)
         .expect(`Content-Type`, /json/)
@@ -72,7 +71,7 @@ describe(`POST /api/posts`, () => {
     return request(app)
         .post(`/api/posts`)
         .field(...scale)
-        .attach(...image)
+        .attach(...filename)
         .set(`Accept`, `application/json`)
         .expect(400)
         .expect(`Content-Type`, /json/)
@@ -87,7 +86,7 @@ describe(`POST /api/posts`, () => {
         .post(`/api/posts`)
         .field(`effect`, effectValue)
         .field(...scale)
-        .attach(...image)
+        .attach(...filename)
         .set(`Accept`, `application/json`)
         .expect(400)
         .expect(`Content-Type`, /json/)
@@ -102,7 +101,7 @@ describe(`POST /api/posts`, () => {
         .field(...effect)
         .field(...scale)
         .field(`hashtags`, hashtagsValue)
-        .attach(...image)
+        .attach(...filename)
         .set(`Accept`, `application/json`)
         .expect(400)
         .expect(`Content-Type`, /json/)
@@ -121,7 +120,7 @@ describe(`POST /api/posts`, () => {
         .field(...effect)
         .field(...scale)
         .field(`description`, descriptionValue)
-        .attach(...image)
+        .attach(...filename)
         .set(`Accept`, `application/json`)
         .expect(400)
         .expect(`Content-Type`, /json/)
