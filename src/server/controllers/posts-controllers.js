@@ -1,6 +1,6 @@
 const {Router} = require(`express`);
 const multer = require(`multer`);
-const dataRenderUtils = require(`../utils/data-render-utils`);
+const asyncMiddleware = require(`../middleware/async-middleware`);
 
 const upload = multer({storage: multer.memoryStorage()});
 const postRouter = new Router();
@@ -30,18 +30,10 @@ postRouter.get(`/:date/image`, async (req, res) => {
   }
 });
 
-postRouter.post(`/`, upload.single(`filename`), async (req, res) => {
-  try {
-    res.json(await postRouter.postsService.createPost(req.body, req.file));
-  } catch (err) {
-    res.status(400).send(err);
-  }
-});
-
-postRouter.use((exception, req, res, next) => {
-  dataRenderUtils.renderException(req, res, exception);
-  next();
-});
+postRouter.post(`/`, upload.single(`filename`), asyncMiddleware(async (req, res) => {
+  const data = await postRouter.postsService.createPost(req.body, req.file);
+  return res.json(data);
+}));
 
 module.exports = (postsService) => {
   postRouter.postsService = postsService;

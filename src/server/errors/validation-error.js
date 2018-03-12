@@ -1,6 +1,10 @@
-module.exports = class ValidationError extends Error {
+class ValidationError extends Error {
   constructor(errors) {
     super();
-    this.errors = errors;
+
+    this.statusCode = 400;
+    this.error = errors;
   }
-};
+}
+
+module.exports = ValidationError;

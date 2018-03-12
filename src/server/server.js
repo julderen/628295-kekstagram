@@ -2,15 +2,12 @@ const express = require(`express`);
 const configs = require(`./configs/configs`);
 const routes = require(`./routes/routes`);
 const logger = require(`./logger`);
+const corsMiddleware = require(`./middleware/cors-middleware`);
 
 const app = express();
 routes.init(app);
 
-app.use((req, res, next) => {
-  res.header(`Access-Control-Allow-Origin`, `*`);
-  res.header(`Access-Control-Allow-Headers`, `Origin, X-Requested-With, Content-Type, Accept`);
-  next();
-});
+app.use(corsMiddleware);
 
 module.exports = {
   start(

@@ -5,42 +5,22 @@ const ValidationError = require(`../errors/validation-error`);
 const SUCCESS_CODE = 200;
 const BAD_DATA_CODE = 400;
 
-const renderErrorHtml = (errors, backUrl) => {
-  return `
+const htmlTemplate = (success, data, backUrl) => (`
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Ошибка в отправленной форме</title>
+    <title>${success ? `Успех` : `Ошибка в отправленной форме`}</title>
 </head>
 <body>
-<h1>Отправленная форма неверна:</h1>
+<h1>${success ? `Данные формы получены успешно:` : `Отправленная форма неверна:`}</h1>
 <pre>
-${util.inspect(errors)}
+${util.inspect(data)}
 </pre>
 <a href="${backUrl}">Назад</a>
 </body>
-</html>`;
-};
-
-const renderSuccessHtml = (form, backUrl) => {
-  // language=HTML
-  return `
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Успех</title>
-</head>
-<body>
-<h1>Данные формы получены успешно:</h1>
-<pre>
-${util.inspect(form)}
-</pre>
-<a href="${backUrl}">Назад</a>
-</body>
-</html>`;
-};
+</html>`
+);
 
 const render = (req, res, data, success) => {
   const badStatusCode = data.code ? data.code : BAD_DATA_CODE;
@@ -49,7 +29,7 @@ const render = (req, res, data, success) => {
     case `html`:
       res.set(`Content-Type`, `text/html`);
       const referer = req.header(`Referer`);
-      res.send((success ? renderSuccessHtml : renderErrorHtml)(data, referer));
+      res.send(htmlTemplate(success, data, referer));
       break;
     default:
       res.json(data);
