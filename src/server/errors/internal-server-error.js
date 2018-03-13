@@ -3,7 +3,10 @@ class InternalServerError extends Error {
     super();
 
     this.statusCode = 500;
-    this.error = `Internal Error`;
+    this.errors = [{
+      error: `Internal Error`,
+      errorMessage: `Server has fallen into unrecoverable problem.`
+    }];
   }
 }
 

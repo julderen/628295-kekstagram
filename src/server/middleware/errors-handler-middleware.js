@@ -7,14 +7,15 @@ const InternalServerError = require(`../errors/internal-server-error`);
 
 const EXPECTED_ERRORS = [ValidationError, NotFoundError, BadRequestError];
 
-const errorsHandler = (error, req, res, _next) => {
+const errorsHandler = (error, req, res, next) => {
   const resultError = EXPECTED_ERRORS.some((e) => error instanceof e) ? error : new InternalServerError();
 
-  logger.error(resultError);
+  logger.error(error);
 
   res.status(resultError.statusCode);
 
-  renderDataError(req, res, Array.isArray(resultError.error) ? resultError.error : [resultError.error]);
+  renderDataError(req, res, resultError.errors);
+  next();
 };
 
 module.exports = errorsHandler;

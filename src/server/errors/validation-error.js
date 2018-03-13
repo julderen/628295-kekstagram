@@ -3,7 +3,7 @@ class ValidationError extends Error {
     super();
 
     this.statusCode = 400;
-    this.error = errors;
+    this.errors = errors.map((error) => Object.assign(error, {error: `Validation Error`}));
   }
 }
 

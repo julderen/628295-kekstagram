@@ -2,12 +2,9 @@ const express = require(`express`);
 const configs = require(`./configs/configs`);
 const routes = require(`./routes/routes`);
 const logger = require(`./logger`);
-const corsMiddleware = require(`./middleware/cors-middleware`);
 
 const app = express();
 routes.init(app);
-
-app.use(corsMiddleware);
 
 module.exports = {
   start(

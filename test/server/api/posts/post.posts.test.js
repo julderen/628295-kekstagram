@@ -28,6 +28,7 @@ const generateErrorEntity = (fieldName, errorMessage, value) => ([
   Object.assign({
     "fieldName": fieldName,
     "errorMessage": errorMessage,
+    "error": `Validation Error`
   },
   value && {"fieldValue": value}
   )]);
